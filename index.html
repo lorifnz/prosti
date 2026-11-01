@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta property="og:title" content="прости меня котик:/">
+<meta name="theme-color" content="#e8323f">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}*{box-sizing:border-box}</style>
+<title>прости меня котик:/</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marck+Script&family=Rubik:wght@400;500;700&display=swap">
+<style>
+:root{
+--bg:#e8323f;
+--bg-deep:#c91f2e;
+--paper:#fff6f3;
+--ink:#2a1416;
+--pink:#ffb3c1;
+--heart:#ff4d6d;
+--display:"Marck Script","Segoe Script",cursive;
+--body:"Rubik",system-ui,-apple-system,"Segoe UI",sans-serif;
+color-scheme:light;
+}
+[hidden]{display:none!important}
+html,body{height:100%}
+body{
+background:radial-gradient(120% 90% at 50% 30%,var(--bg) 0%,var(--bg-deep) 100%);
+color:var(--paper);font-family:var(--body);overflow:hidden;
+padding-left:max(16px,env(safe-area-inset-left,0px));
+padding-right:max(16px,env(safe-area-inset-right,0px));
+-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none;
+}
+.stage{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;text-align:center;padding-block:20px}
+h1{font-family:var(--display);font-weight:400;font-size:clamp(2.1rem,7vw,3.6rem);margin:0;line-height:1.05;text-wrap:balance;text-shadow:0 2px 0 rgba(0,0,0,.12)}
+#ask h1{animation:wiggle 3s ease-in-out infinite}
+@keyframes wiggle{0%,100%{transform:rotate(0)}10%{transform:rotate(-2deg)}20%{transform:rotate(2deg)}30%{transform:rotate(0)}}
+.polaroid{position:relative;background:var(--paper);padding:10px 10px 38px;border-radius:6px;box-shadow:0 20px 40px -18px rgba(60,0,10,.6);animation:sway 4s ease-in-out infinite}
+.polaroid img{display:block;object-fit:cover;border-radius:3px;max-width:100%}
+.polaroid .cap{position:absolute;left:0;right:0;bottom:8px;font-family:var(--display);color:var(--ink);font-size:1.25rem}
+@keyframes sway{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(2deg) translateY(-4px)}}
+.ph{position:relative;overflow:hidden;border-radius:3px;width:min(240px,58vw,34vh);aspect-ratio:1}
+.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 55%;transform:rotate(-90deg)}
+.sticker{position:absolute;width:44px;height:44px;animation:pop 1.6s ease-in-out infinite}
+.sticker svg{width:100%;height:100%;display:block}
+.s1{top:-18px;right:-18px}
+.s2{bottom:18px;left:-22px;width:34px;height:34px;animation-delay:.5s}
+.s3{top:30%;right:-26px;width:28px;height:28px;animation-delay:.9s}
+@keyframes pop{0%,100%{transform:scale(1) rotate(-8deg)}50%{transform:scale(1.18) rotate(8deg)}}
+.hint{font-size:.95rem;min-height:1.4em;opacity:.92;max-width:30ch}
+.btns{display:flex;gap:14px;align-items:center;justify-content:center;flex-wrap:wrap}
+button{font-family:var(--body);font-weight:700;border:0;border-radius:999px;cursor:pointer;padding:12px 26px;font-size:1.05rem;transition:transform .15s ease,box-shadow .15s;touch-action:manipulation}
+button:focus-visible{outline:3px solid var(--paper);outline-offset:3px}
+#yes{background:var(--paper);color:var(--bg-deep);box-shadow:0 6px 0 rgba(0,0,0,.15);transform:scale(var(--grow,1));animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{0%,100%{box-shadow:0 6px 0 rgba(0,0,0,.15),0 0 0 0 rgba(255,246,243,.5)}50%{box-shadow:0 6px 0 rgba(0,0,0,.15),0 0 0 10px rgba(255,246,243,0)}}
+#no{background:rgba(255,255,255,.18);color:var(--paper);border:2px solid rgba(255,255,255,.55);white-space:nowrap}
+#no.flying{position:fixed;z-index:5;transition:left .22s cubic-bezier(.3,1.4,.5,1),top .22s cubic-bezier(.3,1.4,.5,1)}
+.note{background:var(--paper);color:var(--ink);border-radius:14px;padding:14px 18px;max-width:min(340px,100%);font-size:1.02rem;line-height:1.45;text-align:left;box-shadow:0 12px 30px -16px rgba(60,0,10,.6);min-height:3.2em}
+.note .from{display:block;font-family:var(--display);font-size:1.15rem;color:var(--bg-deep);margin-top:6px;text-align:right}
+.caret{display:inline-block;width:2px;height:1.05em;background:var(--ink);vertical-align:-2px;margin-left:1px;animation:caret .8s steps(1) infinite}
+@keyframes caret{50%{opacity:0}}
+#done .polaroid{opacity:0;transform:scale(.6) rotate(-10deg);transition:opacity .5s,transform .7s cubic-bezier(.3,1.5,.5,1);animation:none}
+#done .polaroid.show{opacity:1;transform:scale(1) rotate(2deg)}
+#done .polaroid.show.live{animation:sway 4s ease-in-out infinite}
+#done .polaroid img{height:min(42vh,380px);aspect-ratio:3/4;width:auto}
+.again{background:none;color:var(--paper);font-weight:500;font-size:.85rem;padding:6px 10px;opacity:.7;text-decoration:underline;text-underline-offset:3px}
+canvas{position:fixed;inset:0;pointer-events:none}
+#bgfx{z-index:1}
+#fx{z-index:4}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}#no.flying{transition:none}}
+</style>
+</head>
+<body>
+<canvas id="bgfx"></canvas>
+<canvas id="fx"></canvas>
+<main class="stage" id="ask">
+<h1>Ты прощаешь меня, пупсик?</h1>
+<div class="polaroid">
+<div class="ph"><img src="her/image.jpg" alt="Пупсик"></div>
+<div class="cap">самая лучшая</div>
+<span class="sticker s1"><svg viewBox="0 0 24 24"><path d="M12 21C5 16 2 12.5 2 8.5 2 5.5 4.3 3.5 7 3.5c2 0 3.8 1.2 5 3 1.2-1.8 3-3 5-3 2.7 0 5 2 5 5 0 4-3 7.5-10 12.5z" fill="#ff4d6d" stroke="#2a1416" stroke-width="1.5"/></svg></span>
+<span class="sticker s2"><svg viewBox="0 0 24 24"><path d="M12 21C5 16 2 12.5 2 8.5 2 5.5 4.3 3.5 7 3.5c2 0 3.8 1.2 5 3 1.2-1.8 3-3 5-3 2.7 0 5 2 5 5 0 4-3 7.5-10 12.5z" fill="#ffb3c1" stroke="#2a1416" stroke-width="1.5"/></svg></span>
+<span class="sticker s3"><svg viewBox="0 0 24 24"><path d="M12 2l2.6 6.6L21 9.3l-5 4.4 1.5 6.8L12 17l-5.5 3.5L8 13.7 3 9.3l6.4-.7z" fill="#ffe08a" stroke="#2a1416" stroke-width="1.5" stroke-linejoin="round"/></svg></span>
+</div>
+<div class="hint" id="hint" aria-live="polite">&nbsp;</div>
+<div class="btns">
+<button id="yes" type="button">Прощаю</button>
+<button id="no" type="button">Не прощаю</button>
+</div>
+</main>
+<main class="stage" id="done" hidden>
+<h1>Урааа, простила!</h1>
+<div class="note" aria-live="polite"><span id="typed"></span><span class="caret" id="caret"></span><span class="from" id="from" hidden>твой</span></div>
+<div class="polaroid" id="usCard">
+<img src="us/image.jpg" alt="Мы вместе">
+<div class="cap">мы</div>
+</div>
+<button class="again" id="again" type="button">ещё раз</button>
+</main>
+<script>
+(function(){
+const $=id=>document.getElementById(id);
+const yes=$('yes'), no=$('no'), hint=$('hint'), ask=$('ask'), done=$('done');
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const phrases=['Не прощаю','Точно?','Подумай ещё','Не-а','Не поймаешь','Ну пупсик','Я же извиняюсь','Ошибочка вышла','Жми «Прощаю»'];
+const hints=['','Эй, куда это ты?','Эта кнопка сломалась','Она не хочет, чтобы ты её нажимала','Попробуй другую кнопку','Я правда раскаиваюсь','Ну прости, а?'];
+const MSG='Обещаю больше так не делать, не хотелось попасть в такую глупую ситуацию';
+let tries=0, typingTimer=0;
+function runAway(e){
+if(e){e.preventDefault();}
+tries++;
+const r=no.getBoundingClientRect();
+if(!no.classList.contains('flying')){
+no.style.left=r.left+'px';no.style.top=r.top+'px';
+no.classList.add('flying');void no.offsetWidth;
+}
+no.textContent=phrases[Math.min(tries,phrases.length-1)];
+hint.textContent=hints[Math.min(tries,hints.length-1)]||'\u00a0';
+const w=no.offsetWidth,h=no.offsetHeight,pad=16;
+const yb=yes.getBoundingClientRect();
+let x,y,guard=0;
+do{
+x=pad+Math.random()*Math.max(innerWidth-w-pad*2,1);
+y=pad+Math.random()*Math.max(innerHeight-h-pad*2,1);
+guard++;
+}while(guard<40 && (
+Math.hypot(x-r.left,y-r.top)<130 ||
+(x<yb.right+12 && x+w>yb.left-12 && y<yb.bottom+12 && y+h>yb.top-12)
+));
+no.style.left=x+'px';no.style.top=y+'px';
+yes.style.setProperty('--grow',Math.min(1+tries*0.08,1.7));
+}
+no.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse')runAway()});
+no.addEventListener('pointerdown',runAway);
+no.addEventListener('touchstart',runAway,{passive:false});
+no.addEventListener('click',runAway);
+no.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' ')runAway(e)});
+addEventListener('resize',()=>{if(no.classList.contains('flying')&&!no.hidden)runAway()});
+yes.addEventListener('click',()=>{
+ask.hidden=true;done.hidden=false;no.hidden=true;
+burst(innerWidth/2,innerHeight*0.25,70);
+typeMsg();
+});
+function typeMsg(){
+const t=$('typed'),c=$('caret'),f=$('from'),card=$('usCard');
+t.textContent='';c.hidden=false;f.hidden=true;card.classList.remove('show','live');
+let i=0;clearTimeout(typingTimer);
+const step=()=>{
+t.textContent=MSG.slice(0,++i);
+if(i<MSG.length){typingTimer=setTimeout(step,reduce?0:(MSG[i-1]===','?260:42));}
+else{
+c.hidden=true;f.hidden=false;
+typingTimer=setTimeout(()=>{
+card.classList.add('show');
+setTimeout(()=>card.classList.add('live'),700);
+const r=card.getBoundingClientRect();
+burst(r.left+r.width/2,r.top+r.height/2,140);
+rain=true;
+},500);
+}
+};
+step();
+}
+$('again').addEventListener('click',()=>{
+clearTimeout(typingTimer);rain=false;
+tries=0;no.classList.remove('flying');no.style.left=no.style.top='';no.textContent='Не прощаю';no.hidden=false;
+hint.textContent='\u00a0';yes.style.setProperty('--grow',1);done.hidden=true;ask.hidden=false;
+});
+const bg=$('bgfx'),bctx=bg.getContext('2d'),cv=$('fx'),ctx=cv.getContext('2d');
+function size(){const d=Math.min(devicePixelRatio||1,2);[bg,cv].forEach(c=>{c.width=innerWidth*d;c.height=innerHeight*d;c.getContext('2d').setTransform(d,0,0,d,0,0)})}
+size();addEventListener('resize',size);
+function heart(c,x,y,s,col,a){c.save();c.translate(x,y);c.rotate(a);c.scale(s,s);c.fillStyle=col;c.beginPath();
+c.moveTo(0,3);c.bezierCurveTo(-6,-2,-4,-7,0,-4);c.bezierCurveTo(4,-7,6,-2,0,3);c.fill();c.restore()}
+const cols=['#ffffff','#ffb3c1','#ff8fa3','#ffd7b0'];
+let floaters=[],parts=[],rain=false;
+function addFloater(y){floaters.push({x:Math.random()*innerWidth,y:y??innerHeight+20,s:1+Math.random()*2.2,v:.3+Math.random()*.7,ph:Math.random()*6.28,c:cols[floaters.length%4],o:.18+Math.random()*.3})}
+for(let i=0;i<22;i++)addFloater(Math.random()*innerHeight);
+function burst(x,y,n){
+if(reduce)return;
+for(let i=0;i<n;i++){const a=Math.random()*Math.PI*2,sp=3+Math.random()*7;
+parts.push({x,y,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp-4,s:1.2+Math.random()*2.2,c:['#fff','#ffb3c1','#ff4d6d','#ffd7b0'][i%4],r:Math.random()*6,vr:(Math.random()-.5)*.2,life:1})}
+}
+let t0=0;
+function tick(t){
+bctx.clearRect(0,0,innerWidth,innerHeight);
+floaters.forEach(f=>{f.y-=f.v;f.ph+=.02;bctx.globalAlpha=f.o;heart(bctx,f.x+Math.sin(f.ph)*14,f.y,f.s,f.c,Math.sin(f.ph)*.3)});
+floaters=floaters.filter(f=>f.y>-30);while(floaters.length<22)addFloater();
+bctx.globalAlpha=1;
+if(rain&&t-t0>90){t0=t;parts.push({x:Math.random()*innerWidth,y:-20,vx:(Math.random()-.5),vy:1+Math.random()*2,s:1.2+Math.random()*2,c:['#fff','#ffb3c1','#ff4d6d','#ffd7b0'][Math.random()*4|0],r:Math.random()*6,vr:(Math.random()-.5)*.1,life:1.4})}
+ctx.clearRect(0,0,innerWidth,innerHeight);
+parts.forEach(p=>{p.vy+=.12;p.vx*=.99;p.x+=p.vx;p.y+=p.vy;p.r+=p.vr;p.life-=.006;ctx.globalAlpha=Math.max(Math.min(p.life,1),0);heart(ctx,p.x,p.y,p.s,p.c,p.r)});
+ctx.globalAlpha=1;parts=parts.filter(p=>p.life>0&&p.y<innerHeight+40);
+requestAnimationFrame(tick);
+}
+if(!reduce)requestAnimationFrame(tick);
+})();
+</script>
+</body>
+</html>
